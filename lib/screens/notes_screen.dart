@@ -48,7 +48,7 @@ class _NotesScreenState extends State<NotesScreen> {
     }
 
     try {
-      await _firestoreService.deleteNote(note.id);
+      await _firestoreService.deleteNote(note);
       if (!mounted) {
         return;
       }

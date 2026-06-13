@@ -17,6 +17,7 @@ class NoteCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final updatedAt = note.updatedAt;
+    final imageUrl = note.imageUrl;
 
     return Card(
       clipBehavior: Clip.antiAlias,
@@ -54,6 +55,25 @@ class NoteCard extends StatelessWidget {
                 maxLines: 4,
                 overflow: TextOverflow.ellipsis,
               ),
+              if (imageUrl != null && imageUrl.isNotEmpty) ...[
+                const SizedBox(height: 12),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: AspectRatio(
+                    aspectRatio: 16 / 9,
+                    child: Image.network(
+                      imageUrl,
+                      fit: BoxFit.cover,
+                      errorBuilder: (_, _, _) => const ColoredBox(
+                        color: Color(0xFFECEFF1),
+                        child: Center(
+                          child: Icon(Icons.broken_image_outlined),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
               if (updatedAt != null) ...[
                 const SizedBox(height: 12),
                 Text(

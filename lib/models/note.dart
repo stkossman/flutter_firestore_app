@@ -8,6 +8,8 @@ class Note {
     required this.userId,
     this.createdAt,
     this.updatedAt,
+    this.imageUrl,
+    this.storagePath,
   });
 
   final String id;
@@ -16,6 +18,8 @@ class Note {
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final String userId;
+  final String? imageUrl;
+  final String? storagePath;
 
   factory Note.fromJson(Map<String, dynamic> json, String id) {
     return Note(
@@ -25,6 +29,8 @@ class Note {
       userId: json['userId'] as String? ?? '',
       createdAt: _dateTimeFromJson(json['createdAt']),
       updatedAt: _dateTimeFromJson(json['updatedAt']),
+      imageUrl: json['imageUrl'] as String?,
+      storagePath: json['storagePath'] as String?,
     );
   }
 
@@ -35,6 +41,8 @@ class Note {
       'userId': userId,
       'createdAt': createdAt == null ? null : Timestamp.fromDate(createdAt!),
       'updatedAt': updatedAt == null ? null : Timestamp.fromDate(updatedAt!),
+      'imageUrl': imageUrl,
+      'storagePath': storagePath,
     };
   }
 
@@ -45,6 +53,9 @@ class Note {
     DateTime? createdAt,
     DateTime? updatedAt,
     String? userId,
+    String? imageUrl,
+    String? storagePath,
+    bool clearImage = false,
   }) {
     return Note(
       id: id ?? this.id,
@@ -53,6 +64,8 @@ class Note {
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
       userId: userId ?? this.userId,
+      imageUrl: clearImage ? null : imageUrl ?? this.imageUrl,
+      storagePath: clearImage ? null : storagePath ?? this.storagePath,
     );
   }
 
